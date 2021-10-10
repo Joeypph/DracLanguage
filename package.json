@@ -1,0 +1,20 @@
+{
+  "name": "draclanguage",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Manuel Salvador-A01422267 </br>\r José Antonio Lome-A01422195 </br>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joeypph/DracLanguage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joeypph/DracLanguage/issues"
+  },
+  "homepage": "https://github.com/Joeypph/DracLanguage#readme"
+}
