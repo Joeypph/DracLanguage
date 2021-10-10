@@ -17,7 +17,7 @@ If the input stream has been separated into tokens up to a given character, the 
 -Identifiers:
 -Keywords:
 1|2 |3
-------------- | ------------- | -------------
+- | - | -
 and | else | or |
 break | false | return |
 dec | if | true |
