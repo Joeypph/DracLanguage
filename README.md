@@ -18,7 +18,7 @@ If the input stream has been separated into tokens up to a given character, the 
 -Keywords
 
 
-<!-- --> | <!-- -->|<!-- -->
+() | ()|()
 ------------- | ------------- | -------------
 and | else | or |
 break | false | return |
