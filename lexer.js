@@ -6,7 +6,6 @@ function isLetter(c) {
   return ("a" <= c && c <= "z") || ("A" <= c && c <= "Z");
 }
 
-
 export function* lexer(filename, str) {
   let line = 1;
   let column = 1;
@@ -298,45 +297,20 @@ export function* lexer(filename, str) {
 
   const KEYWORDS = {
     break: "Break",
-    case: "Case",
-    catch: "Catch",
-    class: "Class",
-    const: "Const",
-    continue: "Continue",
-    debugger: "Debugger",
-    default: "Default",
-    delete: "Delete",
-    do: "Do",
+    and: "And",
     else: "Else",
-    export: "Export",
-    extends: "Extends",
-    finally: "Finally",
-    for: "For",
-    function: "Function",
-    if: "If",
-    import: "Import",
-    in: "In",
-    instanceof: "InstanceOf",
-    new: "New",
-    return: "Return",
-    super: "Super",
-    switch: "Switch",
-    this: "This",
-    throw: "Throw",
-    try: "Try",
-    typeof: "TypeOf",
-    var: "Var",
-    void: "Void",
-    while: "While",
-    with: "With",
-    yield: "Yield",
-    let: "Let",
-    null: "Null",
-    true: "True",
+    or: "Or",
     false: "False",
-    set: "Set",
-    get: "Get",
-    arguments: "Arguments",
+    return: "Return",
+    dec: "Dec",
+    if: "If",
+    true: "True",
+    do: "Do",
+    inc: "Inc",
+    var: "Var",
+    elif: "Elif",
+    not: "Not",
+    while: "While",
   };
 
   function id() {
