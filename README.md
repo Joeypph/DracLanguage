@@ -13,11 +13,9 @@ If the input stream has been separated into tokens up to a given character, the 
 
 -Comments
   -Single line comments start with two hyphens (--) and conclude at the end of the line.
-  -Multi-line comments start with a left parentheses followed by an asterisk [(*] and end with an asterisk followed by a right parentheses [*)]
+  -Multi-line comments start with a left parentheses followed by an asterisk [(*] and end with an asterisk followed by a right parentheses [*)]</br>
 -Identifiers
 -Keywords
-
-
 1|2 |3
 ------------- | ------------- | -------------
 and | else | or |
