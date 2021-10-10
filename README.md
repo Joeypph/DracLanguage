@@ -19,14 +19,9 @@ If the input stream has been separated into tokens up to a given character, the 
 
 --- | --- | --- |
 and | else | or |
---- | --- | --- |
 break | false | return |
---- | --- | --- |
 dec | if | true |
---- | --- | --- |
 do | inc | var |
---- | --- | --- |
 elif | not | while |
---- | --- | --- |
 
 -Literals
