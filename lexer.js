@@ -74,10 +74,6 @@ export function* lexer(filename, str) {
 
     if (chr === "*") {
       next();
-      if (chr === ")") {
-        next();
-        return endOfComment();
-      }
       return { type: "MulToken" };
     }
 
