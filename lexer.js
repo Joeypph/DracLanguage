@@ -131,17 +131,17 @@ export function* lexer(filename, str) {
     and: "And",
     else: "Else",
     or: "Or",
-    false: "False",
     return: "Return",
     dec: "Dec",
     if: "If",
-    true: "True",
     do: "Do",
     inc: "Inc",
     var: "Var",
     elif: "Elif",
     not: "Not",
     while: "While",
+    true: "True",
+    false: "False",
   };
 
   function id() {

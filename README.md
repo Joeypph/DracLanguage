@@ -11,7 +11,7 @@ José Antonio Lome-A01422195 </br>
 
 If the input stream has been separated into tokens up to a given character, the next token is the longest string of characters that could constitute a token.
 
-TODO: Fix Bug de comentarios largos, fallando
+Done!
 - Comments
     - Single line comments start with two hyphens (--) and conclude at the end of the line.
     - Multi-line comments start with a left parentheses followed by an asterisk [(*] and end with an asterisk followed by a right parentheses [*)]</br>
@@ -33,8 +33,9 @@ dec | if | true |
 do | inc | var |
 elif | not | while |
 
+Done!
 - Literals:
-  - Booleans
+  - Booleans True, False
   - Integer
   - Characters
   - Strings
