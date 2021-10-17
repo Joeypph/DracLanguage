@@ -42,57 +42,8 @@ export function* lexer(filename, str) {
     return stringOfType('"') || stringOfType("'");
   }
 
-  function hashComment() {
-    for (;;) {
-      if (chr === "\r" || chr === "\n") {
-        newLine();
-        next();
-        break;
-      }
-
-      if (chr === undefined) {
-        break;
-      }
-
-      next();
-    }
-
-    return { type: "HashbangToken" };
-  }
-
-  function hashBang() {
-    if (chr === "#" && line === 1) {
-      next();
-      if (chr === "!") {
-        next();
-        return hashComment();
-      }
-    }
-
-    return null;
-  }
-
   function number() {
     let buffer = "";
-    if (chr == 0) {
-      next();
-      if (chr == "B" || chr == "b") {
-        next();
-        return isBinary();
-      }
-      if (chr == "O" || chr == "o") {
-        next();
-        return isOctal();
-      }
-      if (chr == "X" || chr == "x") {
-        next();
-        return isHexadecimal();
-      }
-      if(chr=="e"){
-        next()
-        return isExponential();
-      }
-    }
     while (isNumeric(chr)) {
       buffer += chr;
       next();
@@ -102,96 +53,6 @@ export function* lexer(filename, str) {
     }
     return null;
   }
-  function isBinary() {
-    for (;;) {
-      if (chr === "\r" || chr === "\n") {
-        newLine();
-        next();
-        break;
-      }
-      if (chr === ";") {
-        semicolon();
-        next();
-        break;
-      }
-
-      if (chr === undefined) {
-        break;
-      }
-
-      next();
-    }
-
-    return { type: "Binary" };
-  }
-  function isOctal() {
-    for (;;) {
-      if (chr === "\r" || chr === "\n") {
-        newLine();
-        next();
-        break;
-      }
-      if (chr === ";") {
-        semicolon();
-        next();
-        break;
-      }
-
-      if (chr === undefined) {
-        break;
-      }
-
-      next();
-    }
-
-    return { type: "Octal" };
-  }
-  function isHexadecimal() {
-    for (;;) {
-      if (chr === "\r" || chr === "\n") {
-        newLine();
-        next();
-        break;
-      }
-      if (chr === ";") {
-        semicolon();
-        next();
-        break;
-      }
-
-      if (chr === undefined) {
-        break;
-      }
-
-      next();
-    }
-
-    return { type: "Hexadecimal" };
-  }
-  function isExponential() {
-    for (;;) {
-      if (chr === "\r" || chr === "\n") {
-        newLine();
-        next();
-        break;
-      }
-      if (chr === ";") {
-        semicolon();
-        next();
-        break;
-      }
-
-      if (chr === undefined) {
-        break;
-      }
-
-      next();
-    }
-
-    return { type: "Exponential" };
-
-  }
-
   function operator() {
     if (chr === "="||chr===":") {
       next();
@@ -235,47 +96,6 @@ export function* lexer(filename, str) {
     }
 
     return null;
-  }
-
-  function regexp() {
-    if (chr === "/") {
-      next();
-      if (chr === "/") {
-        next();
-        return doubleSlash();
-      }
-      if (chr === "*") {
-        next();
-        return endOfComment();
-      }
-      next();
-      while (chr !== "/") {
-        next();
-      }
-
-      // Buscar al final de la cadena match con '/' nuevamente
-      next();
-
-      return { type: "RegExpToken" };
-    }
-  }
-
-  function doubleSlash() {
-    for (;;) {
-      if (chr === "\r" || chr === "\n") {
-        newLine();
-        next();
-        break;
-      }
-
-      if (chr === undefined) {
-        break;
-      }
-
-      next();
-    }
-
-    return { type: "CommentToken" };
   }
 
   function endOfComment() {
@@ -395,16 +215,6 @@ export function* lexer(filename, str) {
 
     return { type: "CommaToken" };
   }
-  function colon() {
-    if (chr !== ":") {
-      return null;
-    }
-
-    next();
-
-    return { type: "ColonToken" };
-  }
-
   function parents() {
     if (chr === "(") {
       next();
@@ -475,7 +285,6 @@ export function* lexer(filename, str) {
       semicolon() ||
       comma() ||
       number() ||
-      hashBang() ||
       id() ||
       parents() ||
       string() ||

@@ -5,7 +5,7 @@ José Antonio Lome-A01422195 </br>
 
 ## Este proyecto tiene como objetivo crear un análisis léxico, sintáctico (con sus respectivos árboles) y semántico para el lenaguaje Drac.
 
--Gramática léxica de Drac:
+- Gramática léxica de Drac:
     -Tokens
         -There are five kinds of tokens: identifiers, keywords, literals, operators, and other separators. Spaces, tabulators, newlines, and comments (collectively, “white space”) are used as delimiters between tokens, but are otherwise ignored.
 
