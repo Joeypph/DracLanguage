@@ -6,7 +6,6 @@ function isLetter(c) {
   return ("a" <= c && c <= "z") || ("A" <= c && c <= "Z");
 }
 
-
 export function* lexer(filename, str) {
   let line = 1;
   let column = 1;
@@ -58,6 +57,7 @@ export function* lexer(filename, str) {
       next();
       return { type: "EqualToken" };
     }
+    
     if (chr === "+") {
       next();
       return { type: "PlusToken" };
@@ -65,14 +65,18 @@ export function* lexer(filename, str) {
 
     if (chr === "-") {
       next();
+      if(chr === "-") {
+        next();
+        return singleInlineComment();
+      }
       return { type: "SubstractionToken" };
     }
 
     if (chr === "*") {
       next();
-      if (chr === "/") {
+      if (chr === ")") {
         next();
-        return doubleSlash();
+        return endOfComment();
       }
       return { type: "MulToken" };
     }
@@ -84,23 +88,33 @@ export function* lexer(filename, str) {
 
     if (chr === "/") {
       next();
-      if (chr === "*") {
-        next();
-        return endOfComment();
-      }
-      if (chr === "/") {
-        next();
-        return doubleSlash();
-      }
       return { type: "DivToken" };
     }
 
     return null;
   }
 
+  function singleInlineComment() {
+    for (;;) {
+      if (chr === "\r" || chr === "\n") {
+        newLine();
+        next();
+        break;
+      }
+
+      if (chr === undefined) {
+        break;
+      }
+
+      next();
+    }
+
+    return { type: "CommentToken" };
+  }
+
   function endOfComment() {
     for (;;) {
-      if (chr === "*" || chr === "/") {
+      if (chr === "*") {
         operator();
         next();
         break;
@@ -113,50 +127,25 @@ export function* lexer(filename, str) {
       next();
     }
 
-    return { type: "LargeCommentToken" };
+    return { type: "CommentToken" };
   }
 
   const KEYWORDS = {
     break: "Break",
-    case: "Case",
-    catch: "Catch",
-    class: "Class",
-    const: "Const",
-    continue: "Continue",
-    debugger: "Debugger",
-    default: "Default",
-    delete: "Delete",
-    do: "Do",
+    and: "And",
     else: "Else",
-    export: "Export",
-    extends: "Extends",
-    finally: "Finally",
-    for: "For",
-    function: "Function",
-    if: "If",
-    import: "Import",
-    in: "In",
-    instanceof: "InstanceOf",
-    new: "New",
-    return: "Return",
-    super: "Super",
-    switch: "Switch",
-    this: "This",
-    throw: "Throw",
-    try: "Try",
-    typeof: "TypeOf",
-    var: "Var",
-    void: "Void",
-    while: "While",
-    with: "With",
-    yield: "Yield",
-    let: "Let",
-    null: "Null",
-    true: "True",
+    or: "Or",
     false: "False",
-    set: "Set",
-    get: "Get",
-    arguments: "Arguments",
+    return: "Return",
+    dec: "Dec",
+    if: "If",
+    true: "True",
+    do: "Do",
+    inc: "Inc",
+    var: "Var",
+    elif: "Elif",
+    not: "Not",
+    while: "While",
   };
 
   function id() {
@@ -167,7 +156,7 @@ export function* lexer(filename, str) {
     buffer += chr;
     next();
 
-    while (isLetter(chr) || isNumeric(chr)) {
+    while (isLetter(chr) || isNumeric(chr) || chr === "_") {
       buffer += chr;
       next();
     }
@@ -218,6 +207,10 @@ export function* lexer(filename, str) {
   function parents() {
     if (chr === "(") {
       next();
+      if(chr === "*"){
+        next();
+        return endOfComment();
+      }
       return { type: "OpenParent" };
     }
 
@@ -281,7 +274,6 @@ export function* lexer(filename, str) {
     const token =
       whiteSpace() ||
       operator() ||
-      regexp() ||
       semicolon() ||
       comma() ||
       number() ||

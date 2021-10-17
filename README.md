@@ -11,11 +11,20 @@ José Antonio Lome-A01422195 </br>
 
 If the input stream has been separated into tokens up to a given character, the next token is the longest string of characters that could constitute a token.
 
--Comments
-    -Single line comments start with two hyphens (--) and conclude at the end of the line.
-    -Multi-line comments start with a left parentheses followed by an asterisk [(*] and end with an asterisk followed by a right parentheses [*)]</br>
--Identifiers:
--Keywords:
+TODO: Fix Bug de comentarios largos, fallando
+- Comments
+    - Single line comments start with two hyphens (--) and conclude at the end of the line.
+    - Multi-line comments start with a left parentheses followed by an asterisk [(*] and end with an asterisk followed by a right parentheses [*)]</br>
+
+Done!
+- Identifiers:
+  - Lome
+  - Lome99
+  - Lome_Paulino9
+  - 9_
+
+Done!
+- Keywords:
 1|2 |3
 ------------- | ------------- | -------------
 and | else | or |
@@ -24,4 +33,8 @@ dec | if | true |
 do | inc | var |
 elif | not | while |
 
--Literals
+- Literals:
+  - Booleans
+  - Integer
+  - Characters
+  - Strings
