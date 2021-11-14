@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Joeypph/DracLanguage/issues"
   },
-  "homepage": "https://github.com/Joeypph/DracLanguage#readme"
+  "homepage": "https://github.com/Joeypph/DracLanguage#readme",
+  "dependencies": {
+    "nodemon": "^2.0.15"
+  }
 }
