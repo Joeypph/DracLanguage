@@ -52,17 +52,16 @@ export function* lexer(filename, str) {
     }
     return null;
   }
+
   function operator() {
-    if (chr === "="||chr===":") {
+    if (chr === "=") {
       next();
       return { type: "EqualToken" };
     }
-    
     if (chr === "+") {
       next();
       return { type: "PlusToken" };
     }
-
     if (chr === "-") {
       next();
       if(chr === "-") {
@@ -71,20 +70,41 @@ export function* lexer(filename, str) {
       }
       return { type: "SubstractionToken" };
     }
-
     if (chr === "*") {
       next();
-      return { type: "MulToken" };
+      return { type: "MultToken" };
     }
-
+    if (chr === "%") {
+      next();
+      return { type: "RemainderToken" };
+    }
     if (chr === "=") {
       next();
       return { type: "AllocationToken" };
     }
-
     if (chr === "/") {
       next();
       return { type: "DivToken" };
+    }
+    if (chr === ">") {
+      next();
+      if(chr === "=") {
+        next();
+        return {type: "GratherOrEqualToken"};
+      }
+      return { type: "GratherToken" };
+    }
+    if (chr === "<") {
+      next();
+      if(chr === "=") {
+        next();
+        return {type: "LessOrEqualToken"};
+      }
+      if(chr === ">") {
+        next();
+        return {type: "NotEqualToken"};
+      }
+      return { type: "LessToken" };
     }
 
     return null;
@@ -97,14 +117,11 @@ export function* lexer(filename, str) {
         next();
         break;
       }
-
       if (chr === undefined) {
         break;
       }
-
       next();
     }
-
     return { type: "CommentToken" };
   }
 
@@ -115,14 +132,11 @@ export function* lexer(filename, str) {
         next();
         break;
       }
-
       if (chr === undefined) {
         break;
       }
-
       next();
     }
-
     return { type: "CommentToken" };
   }
 
@@ -151,19 +165,15 @@ export function* lexer(filename, str) {
     }
     buffer += chr;
     next();
-
     while (isLetter(chr) || isNumeric(chr) || chr === "_") {
       buffer += chr;
       next();
     }
-
     const type = KEYWORDS[buffer];
     if (type) {
       return { type };
     }
-
     return { type: "Id", value: buffer };
-
     return null;
   }
 
@@ -173,11 +183,9 @@ export function* lexer(filename, str) {
     } else {
       return null;
     }
-
     while (chr === " " || chr === "\t") {
       next();
     }
-
     return true;
   }
 
@@ -185,9 +193,7 @@ export function* lexer(filename, str) {
     if (chr !== ";") {
       return null;
     }
-
     next();
-
     return { type: "SemicolonToken" };
   }
 
@@ -195,11 +201,10 @@ export function* lexer(filename, str) {
     if (chr !== ",") {
       return null;
     }
-
     next();
-
     return { type: "CommaToken" };
   }
+
   function parents() {
     if (chr === "(") {
       next();
@@ -209,32 +214,26 @@ export function* lexer(filename, str) {
       }
       return { type: "OpenParent" };
     }
-
     if (chr === ")") {
       next();
       return { type: "CloseParent" };
     }
-
     if (chr === "{") {
       next();
       return { type: "OpenCurly" };
     }
-
     if (chr === "}") {
       next();
       return { type: "CloseCurly" };
     }
-
     if (chr === "[") {
       next();
       return { type: "OpenBracket" };
     }
-
     if (chr === "]") {
       next();
       return { type: "CloseBracket" };
     }
-
     return null;
   }
 

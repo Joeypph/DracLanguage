@@ -10,7 +10,7 @@ const tokens = lexer(filename, input);
 let result = '';
 
 for (const token of tokens) {
-  //console.log(token);
+  console.log(token);
   result += JSON.stringify(token) + "\n";
 }
 
