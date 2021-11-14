@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Joeypph/DracLanguage#readme",
   "dependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "underscore": "^1.13.1"
   }
 }
