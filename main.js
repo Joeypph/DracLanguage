@@ -11,7 +11,7 @@ let result = '';
 
 for (const token of tokens) {
   console.log(token);
-  result += JSON.stringify(token) + "\n";
+  result += JSON.stringify(token.type) + "\n";
 }
 
 writeFile("output.txt", result, (err) => {

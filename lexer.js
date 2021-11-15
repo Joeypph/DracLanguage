@@ -34,7 +34,7 @@ export function* lexer(filename, str) {
 
     // Busca el ultimo delimitador para ver si es una cdena literal
     next();
-    return { type: "String" };
+    return { type: "lit_str" };
   }
 
   function string() {
@@ -48,7 +48,7 @@ export function* lexer(filename, str) {
       next();
     }
     if (buffer.length >= 1) {
-      return { type: "Numeric", buffer };
+      return { type: "lit_int", buffer };
     }
     return null;
   }
@@ -56,11 +56,11 @@ export function* lexer(filename, str) {
   function operator() {
     if (chr === "=") {
       next();
-      return { type: "EqualToken" };
+      return { type: "=" };
     }
     if (chr === "+") {
       next();
-      return { type: "PlusToken" };
+      return { type: "+" };
     }
     if (chr === "-") {
       next();
@@ -68,43 +68,43 @@ export function* lexer(filename, str) {
         next();
         return singleInlineComment();
       }
-      return { type: "SubstractionToken" };
+      return { type: "-" };
     }
     if (chr === "*") {
       next();
-      return { type: "MultToken" };
+      return { type: "*" };
     }
     if (chr === "%") {
       next();
-      return { type: "RemainderToken" };
+      return { type: "%" };
     }
     if (chr === "=") {
       next();
-      return { type: "AllocationToken" };
+      return { type: "=" };
     }
     if (chr === "/") {
       next();
-      return { type: "DivToken" };
+      return { type: "/" };
     }
     if (chr === ">") {
       next();
       if(chr === "=") {
         next();
-        return {type: "GratherOrEqualToken"};
+        return {type: ">="};
       }
-      return { type: "GratherToken" };
+      return { type: ">" };
     }
     if (chr === "<") {
       next();
       if(chr === "=") {
         next();
-        return {type: "LessOrEqualToken"};
+        return {type: "<="};
       }
       if(chr === ">") {
         next();
-        return {type: "NotEqualToken"};
+        return {type: "<>"};
       }
-      return { type: "LessToken" };
+      return { type: "<" };
     }
 
     return null;
@@ -122,7 +122,7 @@ export function* lexer(filename, str) {
       }
       next();
     }
-    return { type: "CommentToken" };
+    return true;
   }
 
   function endOfComment() {
@@ -137,25 +137,25 @@ export function* lexer(filename, str) {
       }
       next();
     }
-    return { type: "CommentToken" };
+    return true;
   }
 
   const KEYWORDS = {
-    break: "Break",
-    and: "And",
-    else: "Else",
-    or: "Or",
-    return: "Return",
-    dec: "Dec",
-    if: "If",
-    do: "Do",
-    inc: "Inc",
-    var: "Var",
-    elif: "Elif",
-    not: "Not",
-    while: "While",
-    true: "True",
-    false: "False",
+    break: "break",
+    and: "and",
+    else: "else",
+    or: "ar",
+    return: "return",
+    dec: "dec",
+    if: "if",
+    do: "do",
+    inc: "inc",
+    var: "var",
+    elif: "elif",
+    not: "not",
+    while: "while",
+    true: "true",
+    false: "false",
   };
 
   function id() {
@@ -173,7 +173,7 @@ export function* lexer(filename, str) {
     if (type) {
       return { type };
     }
-    return { type: "Id", value: buffer };
+    return { type: "id", value: buffer };
     return null;
   }
 
@@ -194,7 +194,7 @@ export function* lexer(filename, str) {
       return null;
     }
     next();
-    return { type: "SemicolonToken" };
+    return { type: ";" };
   }
 
   function comma() {
@@ -202,7 +202,7 @@ export function* lexer(filename, str) {
       return null;
     }
     next();
-    return { type: "CommaToken" };
+    return { type: "," };
   }
 
   function parents() {
@@ -212,27 +212,27 @@ export function* lexer(filename, str) {
         next();
         return endOfComment();
       }
-      return { type: "OpenParent" };
+      return { type: "(" };
     }
     if (chr === ")") {
       next();
-      return { type: "CloseParent" };
+      return { type: ")" };
     }
     if (chr === "{") {
       next();
-      return { type: "OpenCurly" };
+      return { type: "{" };
     }
     if (chr === "}") {
       next();
-      return { type: "CloseCurly" };
+      return { type: "}" };
     }
     if (chr === "[") {
       next();
-      return { type: "OpenBracket" };
+      return { type: "[" };
     }
     if (chr === "]") {
       next();
-      return { type: "CloseBracket" };
+      return { type: "]" };
     }
     return null;
   }
